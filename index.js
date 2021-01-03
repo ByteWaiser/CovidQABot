@@ -59,11 +59,13 @@ async function postData(url, data) {
             "question": chatInput.value.trim(),
             "question_type": m_type[0].checked ? m_type[0].value : m_type[1].value
         }
+
+        data.question = data.question[data.question.length-1] != "?" ? data.question + "?":data.question;
          
         const timestamp = date.toLocaleTimeString()
         const newChatDiv = chatTemplate({
           class: fromPerson ? "person" : "ai",
-            text: fromPerson ? chatInput.value.trim() : await postData("http://127.0.0.1:5000/", data),
+            text: fromPerson ? chatInput.value.trim() : await postData("https://covid-qa-chatbot.herokuapp.com/", data),
           date: timestamp
         });
         if (!fromPerson) {
